@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Inscription</title>
+    <script>
+   document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('inscriptionForm').addEventListener('submit', function(event) {
+                var nom = document.forms["inscriptionForm"]["nom"].value;
+                var prenom = document.forms["inscriptionForm"]["prenom"].value;
+                var telephone = document.forms["inscriptionForm"]["telephone"].value;
+                var motDePasse = document.forms["inscriptionForm"]["mot_de_passe"].value;
+
+
+
+                // Utilisation d'une expression régulière pour vérifier que le nom contient uniquement des lettres alphabétiques
+                var lettersOnly = /^[A-Za-z]+$/;
+                var numericOnly = /^[0-9]+$/;
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+                if (!lettersOnly.test(nom) || nom.length < 2) {
+                    alert("Veuillez entrer un nom valide (lettres uniquement et au moins 2 caractères).");
+                    event.preventDefault(); // Empêche l'envoi du formulaire si la validation échoue
+                }
+                if (!lettersOnly.test(prenom) || prenom.length < 2) {
+                    alert("Veuillez entrer un prenom valide (lettres uniquement et au moins 2 caractères).");
+                    event.preventDefault(); // Empêche l'envoi du formulaire si la validation échoue
+                }
+                if (!numericOnly.test(telephone) || telephone.length !== 8) {
+                    alert("Veuillez entrer un numéro de téléphone valide (8 chiffres).");
+                    event.preventDefault();
+                }
+                if (!passwordRegex.test(motDePasse)) {
+                    alert("Le mot de passe doit contenir au moins 8 caractères, incluant au moins un chiffre, une lettre minuscule et une lettre majuscule.");
+                    event.preventDefault();
+                }
+                // Autres validations à ajouter si nécessaire
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Inscription au site</h1>
+    <form id="inscriptionForm" action="your_server_endpoint" method="post">
+        <table border="0">
+            <tr>
+                <td>Nom :</td>
+                <td><input type="text" name="nom" required/></td>
+            </tr>
+            <tr>
+                <td>Prénom :</td>
+                <td><input type="text" name="prenom" required/></td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td><input type="email" name="email" required/></td>
+            </tr>
+            <tr>
+                <td>Téléphone :</td>
+                <td><input type="tel" name="telephone" required/></td>
+            </tr>
+            <tr>
+                <td>Date de naissance :</td>
+                <td><input type="date" name="date_naissance" required/></td>
+            </tr>
+            <tr>
+                <td>Mot de passe :</td>
+                <td><input type="password" name="mot_de_passe" required/></td>
+            </tr>
+            <tr>
+                <td><button type="submit">S'inscrire</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
